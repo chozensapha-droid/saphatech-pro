@@ -2,23 +2,16 @@ name: Build Saphatech APK
 
 on:
 push:
-branches: ["main"]
+branches:
+- main
 workflow_dispatch:
 
 jobs:
 build:
 runs-on: ubuntu-latest
-
 steps:
-  - name: Checkout
-    uses: actions/checkout@v5
-
-  - name: Check Android project files
-    run: |
-      ls -la
-      test -f settings.gradle || test -f settings.gradle.kts
-      test -f build.gradle || test -f build.gradle.kts
-      test -d app
+- name: Checkout
+uses: actions/checkout@v5
 
   - name: Set up Java
     uses: actions/setup-java@v5
@@ -30,6 +23,13 @@ steps:
     uses: gradle/actions/setup-gradle@v5
     with:
       gradle-version: "8.7"
+
+  - name: Check project files
+    run: |
+      ls -la
+      test -f settings.gradle
+      test -f build.gradle
+      test -d app
 
   - name: Build APK
     run: gradle assembleDebug --stacktrace
