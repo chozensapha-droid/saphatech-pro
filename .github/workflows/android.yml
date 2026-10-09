@@ -1,8 +1,8 @@
 name: Saphatech Test
 'on': workflow_dispatch
-
 jobs:
 test:
 runs-on: ubuntu-latest
 steps:
-- run: echo "Workflow syntax works"
+- name: Check workflow
+run: echo "Workflow syntax works"
